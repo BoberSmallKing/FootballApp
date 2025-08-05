@@ -1,8 +1,8 @@
 cd backend
 python -m venv venv
-source venv/Scripts/activate  # Linux/Mac
-# or
-venv\Scripts\activate.bat     # Windows
+source venv/Scripts/activate  
+
+venv\Scripts\activate.bat  
 
 pip install -r ../requirements.txt
 
