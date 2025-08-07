@@ -1,6 +1,6 @@
 import { React, useEffect, useMemo, useState } from "react";
 import { Box, Chip, IconButton, Typography } from "@mui/material";
-import { Link } from "react-router";
+import { Link, useParams } from "react-router";
 import CalendarViewMonthIcon from "@mui/icons-material/CalendarViewMonth";
 import { MaterialReactTable } from "material-react-table";
 import AxiosInstance from "../../Axios";
@@ -9,16 +9,18 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 const Home = () => {
   const [myData, setMyData] = useState([]);
+  const { id } = useParams(); // league id из URL
 
   const GetData = () => {
-    AxiosInstance.get(`footballclub/`).then((res) => {
+    const url = id ? `footballclub/?league_id=${id}` : `footballclub/`;
+    AxiosInstance.get(url).then((res) => {
       setMyData(res.data);
     });
   };
 
   useEffect(() => {
     GetData();
-  }, []);
+  }, [id]); // вызов при изменении лиги
 
   const columns = useMemo(() => [
     {

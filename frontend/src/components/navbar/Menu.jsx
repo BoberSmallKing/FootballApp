@@ -56,7 +56,13 @@ export default function Menu() {
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             {leagues.map((league) => (
-              <ListItemButton sx={{ pl: 4 }}>
+              <ListItemButton
+                key={league.id}
+                component={Link}
+                to={`/league/${league.id}`}
+                sx={{ pl: 4 }}
+                selected={path === `/league/${league.id}`}
+              >
                 <ListItemIcon>
                   <DashboardCustomizeIcon />
                 </ListItemIcon>
