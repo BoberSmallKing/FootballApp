@@ -12,6 +12,7 @@ import DashboardCustomizeIcon from "@mui/icons-material/DashboardCustomize";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import ArticleIcon from "@mui/icons-material/Article";
+import CreateIcon from "@mui/icons-material/Create";
 import { Link, useLocation } from "react-router";
 
 export default function Menu() {
@@ -74,13 +75,23 @@ export default function Menu() {
 
         <ListItemButton
           component={Link}
-          to="/create"
-          selected={path === "/create"}
+          to="/create_club"
+          selected={path === "/create_club"}
         >
           <ListItemIcon>
             <AddBoxIcon />
           </ListItemIcon>
           <ListItemText primary="Создать клуб" />
+        </ListItemButton>
+        <ListItemButton
+          component={Link}
+          to="/create_article"
+          selected={path === "/create_article"}
+        >
+          <ListItemIcon>
+            <CreateIcon />
+          </ListItemIcon>
+          <ListItemText primary="Создать статью" />
         </ListItemButton>
         <ListItemButton
           component={Link}

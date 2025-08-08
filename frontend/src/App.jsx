@@ -1,7 +1,8 @@
 import { Routes, Route } from "react-router";
 import "./App.css";
 import Home from "./components/pages/Home";
-import Create from "./components/pages/Create";
+import CreateClub from "./components/pages/CreateClub";
+import CreateArticle from "./components/pages/CreateArticle";
 import Edit from "./components/pages/Edit";
 import Delete from "./components/pages/Delete";
 import Navbar from "./components/navbar/Navbar";
@@ -17,7 +18,8 @@ function App() {
             <Route path="/articles" element={<Article />} />
             <Route path="/articles/:id" element={<ArticleDetail />} />
             <Route path="/league/:id" element={<Home />} />
-            <Route path="/create" element={<Create />} />
+            <Route path="/create_club" element={<CreateClub />} />
+            <Route path="/create_article" element={<CreateArticle />} />
             <Route path="/edit/:id" element={<Edit />} />
             <Route path="/delete/:id" element={<Delete />} />
           </Routes>

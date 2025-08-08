@@ -18,4 +18,13 @@ class ArticleViewset(viewsets.ViewSet):
         queryset = self.queryset.get(pk=pk)
         serializer = self.serializer_class(queryset)
         return Response(serializer.data)
+    
+    
+    def create(self,request): 
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors, status=400)
 

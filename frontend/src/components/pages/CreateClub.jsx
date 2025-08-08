@@ -19,10 +19,6 @@ const Create = () => {
   const [message, setMessage] = useState([]);
   const navigate = useNavigate();
 
-  console.log("Country", country);
-  console.log("League", league);
-  console.log("Characteristic", characteristic);
-
   const GetData = () => {
     AxiosInstance.get(`country/`).then((res) => {
       setCountry(res.data);
@@ -42,19 +38,21 @@ const Create = () => {
   }, []);
 
   const validationSchema = yup.object({
-    name: yup.string("The name must be text").required("Name is required"),
+    name: yup
+      .string("Название клуба должно быть текстом")
+      .required("Требуется имя клуба"),
     description: yup
-      .string("The description must be text")
-      .required("Description is required"),
+      .string("Описание должно быть текстом")
+      .required("Требуется описание"),
     attendance: yup
-      .number("Attendance must be a number")
-      .required("Attendance is required"),
-    characteristic: yup.array().min(1, "Select at least one option"),
+      .number("Посещаемость должна быть числом")
+      .required("Требуется посещаемость"),
+    characteristic: yup.array().min(1, "Выберите хотя-бы одно из списка"),
   });
 
   const formik = useFormik({
     initialValues: {
-      name: "NAC Breda",
+      name: "",
       description: "",
       country: "",
       league: "",
@@ -68,7 +66,7 @@ const Create = () => {
       AxiosInstance.post(`footballclub/`, values).then(() => {
         setMessage(
           <MyMessage
-            messageText={"You succesfully submitted data to the database!"}
+            messageText={"Вы успешно отправили данные в базу данных!"}
             messagecolor={"green"}
           />
         );
@@ -99,7 +97,7 @@ const Create = () => {
         <Box className={"FormBox"}>
           <Box className={"FormArea"}>
             <TextForm
-              label={"Club name"}
+              label={"Название клуба"}
               name="name"
               value={formik.values.name}
               onChange={formik.handleChange}
@@ -110,7 +108,7 @@ const Create = () => {
 
             <Box sx={{ marginTop: "30px" }}>
               <TextForm
-                label={"City"}
+                label={"Город"}
                 name="city"
                 value={formik.values.city}
                 onChange={formik.handleChange}
@@ -122,7 +120,7 @@ const Create = () => {
 
             <Box sx={{ marginTop: "30px" }}>
               <SelectForm
-                label={"League"}
+                label={"Лига"}
                 options={league}
                 name="league"
                 value={formik.values.league}
@@ -142,7 +140,7 @@ const Create = () => {
 
           <Box className={"FormArea"}>
             <SelectForm
-              label={"Country"}
+              label={"Страна"}
               options={country}
               name="country"
               value={formik.values.country}
@@ -154,7 +152,7 @@ const Create = () => {
 
             <Box sx={{ marginTop: "30px" }}>
               <TextForm
-                label={"Attendance"}
+                label={"Посещаемость"}
                 name="attendance"
                 value={formik.values.attendance}
                 onChange={formik.handleChange}
@@ -170,7 +168,7 @@ const Create = () => {
 
             <Box sx={{ marginTop: "30px" }}>
               <MultiSelectForm
-                label={"Characteristics"}
+                label={"Характеристики"}
                 options={characteristic}
                 name="characteristic"
                 value={formik.values.characteristic}
@@ -189,7 +187,7 @@ const Create = () => {
 
           <Box className={"FormArea"}>
             <DescriptionForm
-              label={"Description"}
+              label={"Описание"}
               rows={9}
               name="description"
               value={formik.values.description}
