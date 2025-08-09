@@ -51,7 +51,7 @@ const CreateArticle = () => {
             />
           );
           setTimeout(() => {
-            navigate("/");
+            navigate("/articles");
           }, 1500);
         })
         .catch((error) => {
@@ -80,42 +80,44 @@ const CreateArticle = () => {
         {message}
         <Box className={"FormBox"}>
           <Box className={"FormArea"}>
-            <TextForm
-              label={"Заголовок"}
-              rows={9}
-              name="title"
-              value={formik.values.title}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={formik.touched.title && Boolean(formik.errors.title)}
-              helperText={formik.touched.title && formik.errors.title}
-            />
+            <Box sx={{ marginBottom: "15px" }}>
+              <TextForm
+                label={"Заголовок"}
+                rows={9}
+                name="title"
+                value={formik.values.title}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={formik.touched.title && Boolean(formik.errors.title)}
+                helperText={formik.touched.title && formik.errors.title}
+              />
+            </Box>
+            <Box sx={{ marginBottom: "15px" }}>
+              <DescriptionForm
+                label={"Тело"}
+                rows={9}
+                name="body"
+                value={formik.values.body}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={formik.touched.body && Boolean(formik.errors.body)}
+                helperText={formik.touched.body && formik.errors.body}
+              />
+            </Box>
+            <Box sx={{ marginBottom: "15px" }}>
+              <input
+                type="file"
+                name="image"
+                accept="image/*"
+                onChange={(event) => {
+                  formik.setFieldValue("image", event.currentTarget.files[0]);
+                }}
+              />
+            </Box>
+            <Button type="submit" variant="contained" fullWidth>
+              Создать статью
+            </Button>
           </Box>
-          <Box className={"FormArea"}>
-            <DescriptionForm
-              label={"Тело"}
-              rows={9}
-              name="body"
-              value={formik.values.body}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={formik.touched.body && Boolean(formik.errors.body)}
-              helperText={formik.touched.body && formik.errors.body}
-            />
-          </Box>
-          <Box className={"FormArea"}>
-            <input
-              type="file"
-              name="image"
-              accept="image/*"
-              onChange={(event) => {
-                formik.setFieldValue("image", event.currentTarget.files[0]);
-              }}
-            />
-          </Box>
-          <Button type="submit" variant="contained" fullWidth>
-            Создать статью
-          </Button>
         </Box>
       </form>
     </div>
