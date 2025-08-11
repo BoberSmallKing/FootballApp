@@ -8,6 +8,9 @@ import Delete from "./components/pages/Delete";
 import Navbar from "./components/navbar/Navbar";
 import Article from "./components/pages/Article";
 import ArticleDetail from "./components/pages/ArticleDetail";
+import Login from "./components/pages/Login";
+import Logout from "./components/pages/Logout";
+import Register from "./components/pages/Register";
 function App() {
   return (
     <>
@@ -15,6 +18,9 @@ function App() {
         content={
           <Routes>
             <Route path="" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/logout" element={<Logout />} />
+            <Route path="/register" element={<Register />} />
             <Route path="/articles" element={<Article />} />
             <Route path="/articles/:id" element={<ArticleDetail />} />
             <Route path="/league/:id" element={<Home />} />

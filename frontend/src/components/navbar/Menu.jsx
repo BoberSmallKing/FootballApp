@@ -18,8 +18,8 @@ import { Link, useLocation } from "react-router";
 export default function Menu() {
   const [open, setOpen] = React.useState(true);
   const [leagues, setLeagues] = useState([]);
-
-  console.log("League", leagues);
+  const [isAuth, setIsAuth] = useState(false);
+  useEffect(() => {});
 
   const GetData = () => {
     AxiosInstance.get(`league/`).then((res) => {
@@ -28,6 +28,9 @@ export default function Menu() {
   };
 
   useEffect(() => {
+    if (localStorage.getItem("access_token") !== null) {
+      setIsAuth(true);
+    }
     GetData();
   }, []);
 
@@ -42,18 +45,20 @@ export default function Menu() {
   return (
     <>
       <List>
-        <ListItemButton
-          onClick={handleClick}
-          component={Link}
-          to="/"
-          selected={path === "/"}
-        >
-          <ListItemIcon>
-            <DashboardIcon />
-          </ListItemIcon>
-          <ListItemText primary="Все клубы" />
-          {open ? <ExpandLess /> : <ExpandMore />}
-        </ListItemButton>
+        {isAuth ? (
+          <ListItemButton
+            onClick={handleClick}
+            component={Link}
+            to="/"
+            selected={path === "/"}
+          >
+            <ListItemIcon>
+              <DashboardIcon />
+            </ListItemIcon>
+            <ListItemText primary="Все клубы" />
+            {open ? <ExpandLess /> : <ExpandMore />}
+          </ListItemButton>
+        ) : null}
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             {leagues.map((league) => (

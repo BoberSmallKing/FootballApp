@@ -9,7 +9,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 const Home = () => {
   const [myData, setMyData] = useState([]);
-  const { id } = useParams(); // league id из URL
+  const { id } = useParams();
 
   const GetData = () => {
     const url = id ? `footballclub/?league_id=${id}` : `footballclub/`;
@@ -20,32 +20,32 @@ const Home = () => {
 
   useEffect(() => {
     GetData();
-  }, [id]); // вызов при изменении лиги
+  }, [id]);
 
   const columns = useMemo(() => [
     {
       accessorKey: "name",
-      header: "Name",
+      header: "Имя",
     },
     {
       accessorKey: "country_details.name",
-      header: "Country",
+      header: "Страна",
     },
     {
       accessorKey: "league_details.name",
-      header: "League",
+      header: "Лига",
     },
     {
       accessorKey: "city",
-      header: "City",
+      header: "Город",
     },
     {
       accessorKey: "attendance",
-      header: "Attendance",
+      header: "Посещаемость",
     },
     {
       accessorKey: "characteristics_names",
-      header: "Characteristics",
+      header: "Характеристики",
       Cell: ({ cell }) => (
         <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
           {cell.getValue()?.map((char, index) => (
