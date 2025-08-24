@@ -31,6 +31,7 @@ class Characteristic(models.Model):
 
 class FootballClub(models.Model): 
     name = models.CharField(unique=True, max_length=100)
+    logo = models.ImageField(upload_to='images/', blank=True, null=True)
     description = models.CharField(max_length=1000)
     attendance = models.IntegerField(null=True)
     city = models.CharField(max_length=100)

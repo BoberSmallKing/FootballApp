@@ -45,7 +45,6 @@ export default function Menu() {
   return (
     <>
       <List>
-        {isAuth ? (
           <ListItemButton
             onClick={handleClick}
             component={Link}
@@ -58,7 +57,6 @@ export default function Menu() {
             <ListItemText primary="Все клубы" />
             {open ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
-        ) : null}
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             {leagues.map((league) => (
@@ -77,7 +75,8 @@ export default function Menu() {
             ))}
           </List>
         </Collapse>
-
+        
+      {isAuth ? (
         <ListItemButton
           component={Link}
           to="/create_club"
@@ -88,6 +87,8 @@ export default function Menu() {
           </ListItemIcon>
           <ListItemText primary="Создать клуб" />
         </ListItemButton>
+        ) : null}
+        {isAuth ? (
         <ListItemButton
           component={Link}
           to="/create_article"
@@ -98,6 +99,7 @@ export default function Menu() {
           </ListItemIcon>
           <ListItemText primary="Создать статью" />
         </ListItemButton>
+        ) : null}
         <ListItemButton
           component={Link}
           to="/articles"

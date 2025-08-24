@@ -35,7 +35,7 @@ export default function Navbar({ content }) {
           >
             {isBigMenu ? <MenuOpenIcon /> : <MenuIcon />}
           </IconButton>
-          <img width="10%" src={logo} />
+          <a href="/"><img width="50%" src={logo} /></a>
         </Toolbar>
       </AppBar>
       <Drawer

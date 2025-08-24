@@ -11,6 +11,8 @@ import ArticleDetail from "./components/pages/ArticleDetail";
 import Login from "./components/pages/Login";
 import Logout from "./components/pages/Logout";
 import Register from "./components/pages/Register";
+import FootballclubDetail from "./components/pages/FootballclubDetail";
+
 function App() {
   return (
     <>
@@ -28,6 +30,7 @@ function App() {
             <Route path="/create_article" element={<CreateArticle />} />
             <Route path="/edit/:id" element={<Edit />} />
             <Route path="/delete/:id" element={<Delete />} />
+            <Route path="/footballclub/:id" element={<FootballclubDetail />} />
           </Routes>
         }
       />

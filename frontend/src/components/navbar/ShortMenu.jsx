@@ -6,12 +6,14 @@ import AddBoxIcon from "@mui/icons-material/AddBox";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ArticleIcon from "@mui/icons-material/Article";
 import CreateIcon from "@mui/icons-material/Create";
-import { Link, useLocation } from "react-router";
+import { Link, useLocation } from "react-router"; // Исправлен импорт
 
 export default function ShortMenu() {
   const location = useLocation();
   const path = location.pathname;
-  console.log(path);
+
+  // Проверяем аутентификацию при каждом рендере
+  const isAuth = localStorage.getItem("access_token") !== null;
 
   return (
     <>
@@ -30,27 +32,32 @@ export default function ShortMenu() {
             <DashboardIcon />
           </ListItemIcon>
         </ListItemButton>
-
-        <ListItemButton
-          component={Link}
-          to="/create_club"
-          selected={path === "/create_club"}
-          sx={{ display: "flex", justifyContent: "center" }}
-        >
-          <ListItemIcon sx={{ display: "flex", justifyContent: "center" }}>
-            <AddBoxIcon />
-          </ListItemIcon>
-        </ListItemButton>
-        <ListItemButton
-          component={Link}
-          to="/create_article"
-          selected={path === "/create_article"}
-          sx={{ display: "flex", justifyContent: "center" }}
-        >
-          <ListItemIcon sx={{ display: "flex", justifyContent: "center" }}>
-            <CreateIcon />
-          </ListItemIcon>
-        </ListItemButton>
+        
+        {isAuth && (
+          <ListItemButton
+            component={Link}
+            to="/create_club"
+            selected={path === "/create_club"}
+            sx={{ display: "flex", justifyContent: "center" }}
+          >
+            <ListItemIcon sx={{ display: "flex", justifyContent: "center" }}>
+              <AddBoxIcon />
+            </ListItemIcon>
+          </ListItemButton>
+        )}
+        
+        {isAuth && (
+          <ListItemButton
+            component={Link}
+            to="/create_article"
+            selected={path === "/create_article"}
+            sx={{ display: "flex", justifyContent: "center" }}
+          >
+            <ListItemIcon sx={{ display: "flex", justifyContent: "center" }}>
+              <CreateIcon />
+            </ListItemIcon>
+          </ListItemButton>
+        )}
 
         <ListItemButton
           component={Link}

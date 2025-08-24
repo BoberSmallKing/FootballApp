@@ -53,6 +53,7 @@ const Create = () => {
   const formik = useFormik({
     initialValues: {
       name: "",
+      logo: null,
       description: "",
       country: "",
       league: "",
@@ -63,7 +64,20 @@ const Create = () => {
     validationSchema: validationSchema,
 
     onSubmit: (values) => {
-      AxiosInstance.post(`footballclub/`, values).then(() => {
+      const formData = new FormData();
+      formData.append("name", values.name);
+      formData.append("description", values.description);
+      if (values.logo) {
+        formData.append("logo", values.logo);
+      }
+      formData.append("country", values.country);
+      formData.append("league", values.league);
+      formData.append("attendance", values.attendance);
+      formData.append("city", values.city);
+      formData.append("characteristic", values.characteristic);
+      AxiosInstance.post(`footballclub/`, formData, {headers: {
+          "Content-Type": "multipart/form-data",
+        },}).then(() => {
         setMessage(
           <MyMessage
             messageText={"Вы успешно отправили данные в базу данных!"}
@@ -81,7 +95,7 @@ const Create = () => {
 
   return (
     <div>
-      <form onSubmit={formik.handleSubmit}>
+      <form encType="multipart/form-data" onSubmit={formik.handleSubmit}>
         <Box className={"TopBar"}>
           <AddBoxIcon />
           <Typography
@@ -200,6 +214,14 @@ const Create = () => {
                 formik.touched.description && formik.errors.description
               }
             />
+            <input
+                type="file"
+                name="logo"
+                accept="image/*"
+                onChange={(event) => {
+                  formik.setFieldValue("logo", event.currentTarget.files[0]);
+                }}
+              />
           </Box>
         </Box>
       </form>
