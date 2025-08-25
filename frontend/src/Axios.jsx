@@ -12,28 +12,62 @@ const AxiosInstance = axios.create({
   },
 });
 
+AxiosInstance.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("access_token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
 AxiosInstance.interceptors.response.use(
-  (resp) => resp,
+  (response) => response,
   async (error) => {
+    if (!error.response) {
+      return Promise.reject(error);
+    }
+
     if (error.response.status === 401 && !refresh) {
       refresh = true;
-      console.log(localStorage.getItem("refresh_token"));
-      const response = await AxiosInstance.post(
-        "http://localhost:8000/token/refresh/",
-        {
-          refresh: localStorage.getItem("refresh_token"),
+
+      try {
+        const refreshToken = localStorage.getItem("refresh_token");
+
+        if (refreshToken) {
+          const response = await AxiosInstance.post("/token/refresh/", {
+            refresh: refreshToken,
+          });
+
+          if (response.status === 200) {
+            const newAccessToken = response.data.access;
+            AxiosInstance.defaults.headers.common[
+              "Authorization"
+            ] = `Bearer ${newAccessToken}`;
+            localStorage.setItem("access_token", newAccessToken);
+
+            if (response.data.refresh) {
+              localStorage.setItem("refresh_token", response.data.refresh);
+            }
+
+            error.config.headers.Authorization = `Bearer ${newAccessToken}`;
+            refresh = false;
+            return AxiosInstance(error.config);
+          }
         }
-      );
-      if (response.status === 200) {
-        AxiosInstance.defaults.headers.common["Authorization"] = `Bearer 
-       ${response.data["access"]}`;
-        localStorage.setItem("access_token", response.data.access);
-        localStorage.setItem("refresh_token", response.data.refresh);
-        return AxiosInstance(error.config);
+      } catch (refreshError) {
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("refresh_token");
+        console.log("Token refresh failed:", refreshError);
       }
     }
+
     refresh = false;
-    return error;
+    return Promise.reject(error);
   }
 );
 
