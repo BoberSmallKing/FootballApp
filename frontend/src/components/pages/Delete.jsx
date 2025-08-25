@@ -39,7 +39,7 @@ const Delete = () => {
     AxiosInstance.delete(`footballclub/${MyId}/`).then(() => {
       setMessage(
         <MyMessage
-          messageText={"You succesfully deleted data in the database!"}
+          messageText={"Вы успешно удалили клуб!"}
           messagecolor={"green"}
         />
       );
@@ -59,20 +59,20 @@ const Delete = () => {
             sx={{ marginLeft: "15px", fontWeight: "bold" }}
             variant="subtitle2"
           >
-            Are you sure that you want to delete this record?
+            Вы точно хотите удалить клуб?
           </Typography>
         </Box>
 
         <Box className={"TextBox"}>
           <Typography>
-            You will be deleting the club <strong>{myData.name}</strong> from{" "}
+            Вы удалите клуб <strong>{myData.name}</strong> из{" "}
             <strong>{myData.city}</strong>.
           </Typography>
         </Box>
 
         <Box sx={{ marginTop: "30px" }}>
           <Button type="submit" variant="contained" fullWidth>
-            Delete
+            Удалить
           </Button>
         </Box>
       </form>

@@ -56,8 +56,8 @@ class ArticleViewset(viewsets.ViewSet):
     def create(self,request): 
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
+            serializer.save(author=request.user)
+            return Response(serializer.data, status=201)
         else:
             return Response(serializer.errors, status=400)
 

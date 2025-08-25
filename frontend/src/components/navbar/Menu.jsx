@@ -13,12 +13,14 @@ import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import ArticleIcon from "@mui/icons-material/Article";
 import CreateIcon from "@mui/icons-material/Create";
-import { Link, useLocation } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
+import checkLoginLink from "../../SimpleFunctions";
 
 export default function Menu() {
   const [open, setOpen] = React.useState(true);
   const [leagues, setLeagues] = useState([]);
   const [isAuth, setIsAuth] = useState(false);
+  const navigate = useNavigate();
   useEffect(() => {});
 
   const GetData = () => {
@@ -45,18 +47,18 @@ export default function Menu() {
   return (
     <>
       <List>
-          <ListItemButton
-            onClick={handleClick}
-            component={Link}
-            to="/"
-            selected={path === "/"}
-          >
-            <ListItemIcon>
-              <DashboardIcon />
-            </ListItemIcon>
-            <ListItemText primary="Все клубы" />
-            {open ? <ExpandLess /> : <ExpandMore />}
-          </ListItemButton>
+        <ListItemButton
+          onClick={handleClick}
+          component={Link}
+          to="/"
+          selected={path === "/"}
+        >
+          <ListItemIcon>
+            <DashboardIcon />
+          </ListItemIcon>
+          <ListItemText primary="Все клубы" />
+          {open ? <ExpandLess /> : <ExpandMore />}
+        </ListItemButton>
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             {leagues.map((league) => (
@@ -75,11 +77,12 @@ export default function Menu() {
             ))}
           </List>
         </Collapse>
-        
-      {isAuth ? (
+
         <ListItemButton
-          component={Link}
-          to="/create_club"
+          component="div"
+          onClick={() => {
+            checkLoginLink(isAuth, navigate, "/create_club");
+          }}
           selected={path === "/create_club"}
         >
           <ListItemIcon>
@@ -87,11 +90,12 @@ export default function Menu() {
           </ListItemIcon>
           <ListItemText primary="Создать клуб" />
         </ListItemButton>
-        ) : null}
-        {isAuth ? (
+
         <ListItemButton
-          component={Link}
-          to="/create_article"
+          component="div"
+          onClick={() => {
+            checkLoginLink(isAuth, navigate, "/create_article");
+          }}
           selected={path === "/create_article"}
         >
           <ListItemIcon>
@@ -99,7 +103,6 @@ export default function Menu() {
           </ListItemIcon>
           <ListItemText primary="Создать статью" />
         </ListItemButton>
-        ) : null}
         <ListItemButton
           component={Link}
           to="/articles"

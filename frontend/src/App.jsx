@@ -12,6 +12,7 @@ import Login from "./components/pages/Login";
 import Logout from "./components/pages/Logout";
 import Register from "./components/pages/Register";
 import FootballclubDetail from "./components/pages/FootballclubDetail";
+import NotLogin from "./components/pages/NotLogin";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/logout" element={<Logout />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/notlogin" element={<NotLogin />} />
             <Route path="/articles" element={<Article />} />
             <Route path="/articles/:id" element={<ArticleDetail />} />
             <Route path="/league/:id" element={<Home />} />

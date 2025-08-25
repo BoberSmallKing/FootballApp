@@ -19,7 +19,7 @@ const ArticleDetail = () => {
     <div className="article-container">
       <h1 className="article-title">{article.title}</h1>
       <div className="article-meta">
-        <span style={{ marginRight: "10px" }}>{article.author}</span>
+        <span style={{ marginRight: "10px" }}>{article.author.username}</span>
         <span>
           {new Date(article.created_at).toLocaleDateString("ru-RU", {
             year: "numeric",

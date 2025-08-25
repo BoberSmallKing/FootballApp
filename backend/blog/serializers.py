@@ -4,10 +4,19 @@ from django.contrib.auth.models import User
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
 
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username']
+
 class ArticleSerializer(serializers.ModelSerializer):
+    author = UserSerializer(read_only=True)
+    
     class Meta:
         model = Article
-        fields = "__all__"
+        fields = ['id', 'title', 'body', 'image', 'created_at', 'author']
+        read_only_fields = ['author', 'created_at']
         
         
 class RegisterSerializer(serializers.ModelSerializer):
