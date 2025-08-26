@@ -5,10 +5,7 @@ from datetime import timedelta
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure--04eir=nd8dr3wssr%$jz^iq)f&j=rl#$0cr+yv!@1&4f6ft@s'
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -70,6 +67,8 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
    'http://localhost:5173',
 ]
+
+STATIC_ROOT = BASE_DIR/'staticfiles'
 
 ROOT_URLCONF = 'crud.urls'
 
