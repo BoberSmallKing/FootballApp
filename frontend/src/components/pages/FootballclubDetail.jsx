@@ -53,9 +53,7 @@ const FootballclubDetail = () => {
       <Typography variant="subtitle1">
         Лига: {footballclub.league_details?.name}
       </Typography>
-      <Typography variant="subtitle1">
-        Город: {footballclub.city}
-      </Typography>
+      <Typography variant="subtitle1">Город: {footballclub.city}</Typography>
       <Typography variant="subtitle1">
         Посещаемость: {footballclub.attendance}
       </Typography>
